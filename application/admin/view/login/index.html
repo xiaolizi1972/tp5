@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="__admin_style__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__admin_style__/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__admin_style__/css/animate.min.css" rel="stylesheet">
+    <link href="__admin_style__/css/style.min.css" rel="stylesheet">
+    <link href="__admin_style__/css/login.min.css" rel="stylesheet">
+    <!-- 验证 -->
+    <link rel="stylesheet" href="__admin_style__/dist/css/bootstrapValidator.css"/>
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>
+        if(window.top!==window.self){window.top.location=window.location};
+    </script>
+
+</head>
+
+<body class="signin">
+    <div class="signinpanel">
+        <div class="row">
+            
+            <div class="col-sm-12 ">
+                <form method="post" action="{:url('login/login')}" id="myform">
+                    <h4 class="no-margins">登录：</h4>
+                    <p class="m-t-md">欢迎登录</p>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control uname" placeholder="请输入用账号"  name="user_name"/>
+                    </div>
+
+                    <div class="form-group" id="pwd">
+                        <input type="password" class="form-control pword m-b" placeholder="请输入密码" 
+                        name="password" />
+                        <span style="color:#3c763d" id='hint'></span>
+                    </div>
+                   
+                    <button class="btn btn-success btn-block" type="submit">登录</button>
+                </form>
+            </div>
+        </div>
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2015 All Rights Reserved. H+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="__admin_style__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__admin_style__/js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="__admin_style__/dist/js/bootstrapValidator.js"></script>
+    <script src="__admin_style__/js/layer/layer.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+       
+        $('#myform')
+            .bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    user_name: {
+                        message: 'The username is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: '账户不能为空'
+                            },
+                            stringLength: {
+                                max: 24,
+                                message: '账户不能超过24个字符'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_\.\u4e00-\u9fa5]+$/,
+                                message: '账户只能是中英文,下划线和数字'
+                            }
+                        }
+                    },
+                    password: {
+                        validators: {
+                            notEmpty: {
+                                message: '密码不能为空'
+                            },
+                            stringLength: {
+                                min:6,
+                                max: 24,
+                                message: '密码长度在6-24个字符'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_\.]+$/,
+                                message: '密码只能是英文,下划线和数字'
+                            }
+                        }
+                    }
+                }
+            })
+            .on('success.form.bv', function(e) {
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function(rs) {
+                    layer.msg(rs.message)
+                    if(rs.status == 200){
+                        setTimeout(function (){
+                            window.location.href = "{:url('index/index')}"
+                        },1000);
+                    }
+                    if(rs.data >0){
+                       var  num = 6;
+                       var dd = num-rs.data;
+                        $('#hint').html('您还可以尝试'+dd+'次');
+                    }
+                }, 'json');
+            });
+    });
+</script>
+
+
+</body>
+
+</html>

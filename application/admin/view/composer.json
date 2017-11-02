@@ -1,0 +1,33 @@
+{
+   "name": "xiaolizilg/form",
+  "description": "Yii2 zqy234 terrytest",
+  "keywords": [
+    "yii2",
+    "terrytest"
+  ],
+  "homepage": "https://github.com/xiaolizilg/form",
+  "type": "yii2-extension",
+  "license": "MIT",
+  "support": {
+    "source": "https://github.com/xiaolzilg/form"
+  },
+  "authors": [
+    {
+      "name": "terry water",
+      "email": "2860265796@126.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.6.28",
+   
+  },
+  "autoload": {
+    "psr-4": {
+      "terry\\": ""
+    }
+  },
+  "config": {
+    "process-timeout": 1800
+  }
+}

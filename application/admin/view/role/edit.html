@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>H+ 后台主题UI框架 - 数据表格</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico">
+     <link href="__admin_style__/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="__admin_style__/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+     <link href="__admin_style__/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <!-- 表格样式 -->
+    <link href="__admin_style__/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="__admin_style__/css/animate.min.css" rel="stylesheet">
+    <link href="__admin_style__/css/style.min.css?v=4.0.0" rel="stylesheet">
+
+    
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>数据列表</h5>
+                    </div>
+                    <form method="post" action="{:url('role/update')}" class="form-horizontal" id="myform">
+                    <div class="ibox-content">
+                        <table class="table table-striped table-bordered table-hover " id="editable">
+                           <input type="hidden" name="role_id" value ="{$role->role_id}">
+                            <tbody>
+                                <tr class="gradeC">
+                                    <td>角色名</td>
+                                    <td>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" placeholder="请输入权限组名称" name="name" value="{$role->name}">
+                                        </div>
+                                     </div>
+                                    </td>
+                               </tr>
+                             
+                                {notempty name="rules"}
+                                {volist name="rules" id="rule"}
+                               <tr class="gradeC">
+                                    <td>
+                                        <label >
+                                              <input type="checkbox" name="rule_id[]" value="{$rule.id}" cka="mod-{$rule.id}" {if isset($role) &&  in_array($rule.id,$role->rule_id)} checked {/if}> <i></i> {$rule.name} 
+                                        </label>
+                                    </td>
+
+                                    <td>
+                                    
+                                        {notempty name="rule.child"}
+                                        {volist name="rule.child" id="child"}
+                                            <input type="checkbox" value="{$child.id}"  name="rule_id[]" ck="mod-{$rule.id}"  style="margin-left:10px;"  {if isset($role) &&  in_array($child.id,$role->rule_id)} checked {/if}>{$child.name} <i></i> 
+                                            
+                                        {/volist}
+                                        {/notempty}
+                                            
+                                    </td>
+
+                               </tr> 
+                               {/volist} 
+                               {/notempty}
+
+                               <tr class="gradeC">
+                                    <td>
+                                        
+                                        <input type="checkbox" onclick="choosebox(this)"> <i></i> 全选
+                                        
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-10">
+                                            <div class="form-group">
+                                                <div class="col-sm-4 col-sm-offset-2">
+                                                    <button class="btn btn-primary" type="submit">保存</button>
+                                                    <button class="btn btn-white" type="submit">取消</button>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </td>
+                                    
+                               </tr>                               
+                               
+                            </tbody>
+
+                        </table>
+                        
+                        
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹框 -->
+    
+    <script src="__admin_style__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__admin_style__/js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="__admin_style__/js/plugins/jeditable/jquery.jeditable.js"></script>
+    <script src="__admin_style__/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="__admin_style__/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="__admin_style__/js/plugins/iCheck/icheck.min.js"></script>
+    
+    <script src="__admin_style__/js/plugins/layer/layer.min.js"></script>
+    <!-- 自定义 -->
+    <script src="__admin_style__/dist/js/bootstrapValidator.js"></script>
+    <!-- 自定义 -->
+    <script>
+       
+        
+         function choosebox(o){
+            var vt = $(o).is(':checked');
+            if(vt){
+                $('input[type=checkbox]').prop('checked',vt);
+            }else{
+                $('input[type=checkbox]').removeAttr('checked');
+            }
+        }
+            
+        
+        $(document).ready(function(){
+            $(":checkbox[cka]").click(function(){
+                var $cks = $(":checkbox[ck='"+$(this).attr("cka")+"']");
+                if($(this).is(':checked')){
+                    $cks.each(function(){$(this).prop("checked",true);});
+                }else{
+                    $cks.each(function(){$(this).removeAttr('checked');});
+                }
+            });
+
+
+            $('#myform')
+            .bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    name: {
+                        message: 'The username is not valid',
+                        validators: {
+                            notEmpty: {
+                                message: '名称不能为空'
+                            },
+                            stringLength: {
+                                max: 24,
+                                message: '名称不能超过24个字符'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_\.\u4e00-\u9fa5]+$/,
+                                message: '账户只能是中英文,下划线和数字'
+                            }
+                        }
+                    },
+                    
+                }
+            })
+            .on('success.form.bv', function(e) {
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function(rs) {
+                    layer.msg(rs.message)
+                    if(rs.status == 200){
+                        setTimeout(function (){
+                            window.location.href = "{:url('role/index')}"
+                        },1000);
+                    }
+                    
+                }, 'json');
+            });
+
+
+        });
+
+     
+    
+    </script>
+   
+</body>
+
+</html>
