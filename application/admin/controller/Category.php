@@ -38,7 +38,7 @@ class Category extends Controller
     //保存数据
     public function save(Request $request)
     {
-        return $this->category()
+        return $this->category();
     }
 
 
@@ -46,7 +46,7 @@ class Category extends Controller
     public function edit($id)
     {
         $category =   $this->category->getInfo($id);
-        return  view('edit',['category'=>$category])
+        return  view('edit',['category'=>$category]);
     }
 
 

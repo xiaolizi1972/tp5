@@ -11,6 +11,7 @@ class Index extends Base
     //首页
     public function index()
     {
+        //pr($this->menuList());
          return view('index',['menu_list'=>$this->menuList()]);
     }
 
