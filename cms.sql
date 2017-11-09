@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-11-06 17:59:22
+Date: 2017-11-08 17:48:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,7 +31,7 @@ CREATE TABLE `tp_ad` (
   PRIMARY KEY (`ad_id`),
   KEY `ad_name` (`ad_name`),
   KEY `p_id` (`p_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_ad
@@ -227,7 +227,7 @@ CREATE TABLE `tp_position` (
   `position_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '广告描述',
   `status` tinyint(1) DEFAULT '0' COMMENT '0关闭1开启',
   PRIMARY KEY (`position_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5137 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_position

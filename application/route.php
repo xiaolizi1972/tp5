@@ -83,12 +83,11 @@ Route::post('admin/category/update','admin/category/update');
 Route::get('admin/category/delete/:id','admin/category/delete');
 Route::get('admin/category/status','admin/category/status');
 
-
 //系统配置
 Route::get('admin/system/index','admin/system/index');
 Route::get('admin/system/create','admin/system/create');
 Route::post('admin/system/save','admin/system/save');
-Route::get('admin/system/edit:id','admin/system/edit');
+Route::get('admin/system/edit/:id','admin/system/edit');
 Route::post('admin/system/update','admin/system/update');
 Route::get('admin/system/delete:id','admin/system/delete');
 Route::get('admin/system/status','admin/system/status');
@@ -97,10 +96,19 @@ Route::get('admin/system/status','admin/system/status');
 Route::get('admin/pay/index','admin/pay/index');
 Route::get('admin/pay/create','admin/pay/create');
 Route::post('admin/pay/save','admin/pay/save');
-Route::get('admin/pay/edit:id','admin/pay/edit');
+Route::get('admin/pay/edit/:id','admin/pay/edit');
 Route::post('admin/pay/update','admin/pay/update');
 Route::get('admin/pay/delete:id','admin/pay/delete');
 Route::get('admin/pay/status','admin/pay/status');
+
+//广告
+Route::get('admin/advs/index','admin/advs/index');
+Route::get('admin/advs/create','admin/advs/create');
+Route::post('admin/advs/save','admin/advs/save');
+Route::get('admin/advs/edit/:id','admin/advs/edit');
+Route::post('admin/advs/update','admin/advs/update');
+Route::get('admin/advs/delete/:id','admin/advs/delete');
+Route::get('admin/advs/status','admin/advs/sataus');
 
 
 return [

@@ -24,7 +24,7 @@ class User extends Model
     }
 
 
-    //魔化查询方法
+    //模糊查询方法
     public function scopeUserName($query, $user_name)
     {
         $query->where('user_name', 'like', '%' . $user_name . '%');

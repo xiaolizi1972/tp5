@@ -13,6 +13,7 @@ class Pay extends Controller
 
     public function  __construct(PayLogic $pay)
     {
+        parent::__construct();
         $this->pay  =  $pay;
 
     }
@@ -25,8 +26,6 @@ class Pay extends Controller
         return view('index',['pays'=>$pays]);
     }
 
-
-   
 
 
     //添加页
@@ -45,15 +44,19 @@ class Pay extends Controller
     //编辑页
     public function edit($id)
     {
-       
-       return  view('edit');
+
+        $pay =  $this->pay->getInfo($id); 
+        $pay->thumb_img  =  $pay->getCover->thumb_img; 
+        $this->assign('status', $pay->getData('status'));
+
+        return  view('edit',['pay'=>$pay]);
     }
 
 
     //修改数据
     public function update()
     {
-        
+        return $this->pay->update(input('post.'));
     }
 
 

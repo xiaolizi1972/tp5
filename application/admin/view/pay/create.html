@@ -18,7 +18,9 @@
     <link href="__admin_style__/css/style.min.css?v=4.0.0" rel="stylesheet">
      <!-- 验证 -->
     <link rel="stylesheet" href="__admin_style__/dist/css/bootstrapValidator.css"/>
-   
+    <!-- 文件上传 -->
+    <link rel="stylesheet" type="text/css" href="__admin_style__/js/webuploader/css/webuploader.css">
+    <link href="__admin_style__/js/bootstrapUploade/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -30,7 +32,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>表单列表 <small>/添加表单</small></h5>
+                        <h5>支付列表 <small>/添加支付</small></h5>
                        
                     </div>
                     <div class="ibox-content">
@@ -84,9 +86,20 @@
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">封面</label>
-
+                                <input type="hidden" name="cover_id" id="cover_id" value="">
                                 <div class="col-sm-4">
-                                  <input type="text" class="form-control" placeholder="请输入封面id" name="cover_id">
+                                    <div class="input-group">  
+                                        <div id="uploader-demo">
+                                            <!--用来存放item-->
+                                            <div id="fileList" class="uploader-list"></div>
+                                            <div id="filePicker" class="">选择图片</div>
+                                            <div  class="file-item" >
+                                                <img  src="" id="imgs">
+                                                <div class="info"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -112,7 +125,7 @@
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
                                     <button class="btn btn-primary" type="submit">保存</button>
-                                    <button class="btn btn-white" type="submit">取消</button>
+                                    <button class="btn btn-white" type="button" onClick="javascript :history.back(-1);">取消</button>
                                 </div>
                             </div>
                         </form>
@@ -126,8 +139,11 @@
     <script src="__admin_style__/js/jquery.min.js?v=2.1.4"></script>
     <script src="__admin_style__/js/bootstrap.min.js?v=3.3.5"></script>
     <script src="__admin_style__/js/plugins/iCheck/icheck.min.js"></script>
-     <script src="__admin_style__/dist/js/bootstrapValidator.js"></script>
+    <script src="__admin_style__/dist/js/bootstrapValidator.js"></script>
     <script src="__admin_style__/js/layer/layer.js"></script>
+
+    <!-- 上传文件 -->
+    <script src="__admin_style__/js/webuploader/webuploader.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
        
@@ -212,6 +228,43 @@
                     
                 }, 'json');
             });
+
+
+             //文件上传
+             //初始化Web Uploader
+            var uploader = WebUploader.create({
+                // 自动上传
+                auto: true,
+                // swf文件路径
+                swf: 'js/webuploader/dist/Uploader.swf',
+                // 提交地址
+                server: 'http://www.admin.com/admin/image/image',
+                // 选择文件的按钮。可选。
+                pick: '#filePicker',
+                // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                resize: false,
+                // 允许上传的格式
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/*'
+                },
+                 duplicate :true //是否重复上传
+            });
+
+            // 上传成功回调
+            uploader.on( 'uploadSuccess', function( file,response ) {
+               
+                //console.log(response);
+                 $('#imgs').css({"width":"200","height":"200"});
+                 $('#imgs').attr('src',response.data.path);
+                $('#cover_id').val(response.data.id);
+                // console.log(response.data.id);
+    
+            });
+
+            //alert(response.data.id);
+
     });
 </script>
 </body>

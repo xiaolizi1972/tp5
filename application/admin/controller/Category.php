@@ -8,69 +8,65 @@ use app\admin\logic\CategoryLogic;
 
 class Category extends Controller
 {
-
-
-    
     protected $category;
 
-    public function __construct(CategoryLogic $category)
+    public function  __construct(CategoryLogic $category)
     {
-        parent::__construct();
-        $this->category  =  $category;
+
+        $this->category =  $category;
     }
 
-    //分类列表
+
+    //数据列表
     public function index()
     {
-        $categorys =  $this->cateogry->getList();
-        return  view('index',['categorys'=>$categorys]);
+        $categorys  =  $this->category->getList();
+
+        return view('index',['categorys'=>$categorys]);
     }
+
 
 
     //添加页
     public function create()
     {
-        return  view();
+        return view();
     }
 
 
 
     //保存数据
-    public function save(Request $request)
+    public function save()
     {
-        return $this->category();
+        
     }
 
-
+   
     //编辑页
     public function edit($id)
     {
-        $category =   $this->category->getInfo($id);
-        return  view('edit',['category'=>$category]);
+       
+       return  view('edit');
     }
-
 
 
     //修改数据
     public function update()
     {
-        return $this->category->update(input('post.'));
+        
     }
-
 
 
     //删除数据
     public function delete($id)
     {
-        return  $this->category->delete($id);
+        
     }
 
 
-
-    //状态
-    public function status()
+     //修改状态
+    public function status($id)
     {
-        return $this->category->status();
+        
     }
-
 }

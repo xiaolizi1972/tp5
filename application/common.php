@@ -25,8 +25,10 @@ function  pr($data)
     echo "<pre>";
     print_r($data);
     echo "</pre>";
+
+    die;
     
-}
+}   
 
 
 function  vr($data){
@@ -34,5 +36,16 @@ function  vr($data){
     echo "<pre>";
     var_dump($data);
     echo "</pre>";
+    die;
+}
 
+
+/**
+ * 创建目录
+ * @param $path
+ */
+function create_dir($path){
+    if(!is_dir($path)){
+        mkdir(iconv("UTF-8", "GBK",$path),0777,true);
+    }
 }

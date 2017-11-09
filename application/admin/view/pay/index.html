@@ -30,7 +30,7 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>数据列表</h5>
+                        <h5>支付列表</h5>
                     </div>
                     <div class="ibox-content">
                         <div class="col-sm-1">
@@ -67,7 +67,7 @@
 										{$pay->status}
 									</td>
                                     <td class="center">
-										<a class="glyphicon glyphicon-pencil" title="编辑" href="{:url('pay/pay/edit',array('id'=>$pay->id))}"></a>
+										<a class="glyphicon glyphicon-pencil" title="编辑" href="{:url('admin/pay/edit',array('id'=>$pay->id))}"></a>
 										<a class="glyphicon glyphicon-trash"  title="删除" onclick="del({$pay->id})"></a>
 										<a class="glyphicon glyphicon-eye-open" title="查看" href="show.html"></a>
 									</td>

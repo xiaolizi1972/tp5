@@ -57,8 +57,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            {notempty name="admins"}
-                            {volist name="admins" id="admin"}
+                            {notempty name="articles"}
+                            {volist name="articles" id="admin"}
                                 <tr class="gradeX" id="rem{$admin->admin_id}">
                                     <td>{$admin->admin_id}</td>
                                     <td>{$admin->user_name}</td>
@@ -84,7 +84,7 @@
 
 							<div class="pull-right col-sm-6">
 								<div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
-									{$admins->render()}
+									{$articles->render()}
 								</div>
 							</div>
 						</div>

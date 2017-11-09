@@ -13,7 +13,7 @@ class Qrcode extends Controller
     {
         $qrCode = new QR(); 
 
-        $url = 'www.baidu.com';//加http://这样扫码可以直接跳转url
+        $url = 'http://www.baidu.com';//加http://这样扫码可以直接跳转url
         $qrCode->setText($url)
         ->setSize(80)//大小
         ->setLabelFontPath(VENDOR_PATH.'endroid\qrcode\assets\noto_sans.otf')

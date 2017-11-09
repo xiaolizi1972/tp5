@@ -2,7 +2,7 @@
 namespace app\admin\logic;
 
 use think\Controller;
-
+use app\common\model\Category;
 
 class CategoryLogic extends Controller
 {
@@ -12,7 +12,7 @@ class CategoryLogic extends Controller
     public  function getList()
     {
 
-
+        return  Category::paginate();
     }
 
 

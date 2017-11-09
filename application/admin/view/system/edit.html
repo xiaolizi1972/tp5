@@ -30,44 +30,37 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>表单列表 <small>/添加表单</small></h5>
+                        <h5>配置列表 <small>/添加配置</small></h5>
                        
                     </div>
                     <div class="ibox-content">
-                        <form method="post" action="{:url('admin/update')}" id="myform" class="form-horizontal">
-                        <input type="hidden" name="admin_id" value="{$admin.admin_id}">
+                        <form method="post" action="{:url('system/update')}" id="myform" class="form-horizontal">
+                            <input type="hidden" name="id" value="{$system->id}">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">账户</label>
+                                <label class="col-sm-2 control-label">配置名称</label>
 
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="请输入账户名" name="user_name" value="{$admin->user_name}">
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-
-                           
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">手机</label>
-
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="请输入手机号码" name="phone"  value="{$admin->phone}">
+                                    <input type="text" class="form-control" placeholder="请输入配置名称" name="name" value="{$system->name}">
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">角色</label>
+                                <label class="col-sm-2 control-label">值</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="请输入配置值" name="value" value="{$system->value}"> 
+                                   <!--  <span class="help-block m-b-none" >      
+                                        (默认密码123456)
+                                    </span> -->
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">描述</label>
 
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="role_id">
-                                        {notempty name="roles"}
-                                        {volist name="roles" id="role"}
-                                            <option value="{$role.role_id}" {if condition="$role.role_id eq $admin.role_id" } selected {/if}>{$role->name}</option>
-                                        {/volist}
-                                        {/notempty}
-                                       
-                                    </select>
+                                    <textarea name="desc"  class="form-control" rows="6"  >{$system->desc}</textarea>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -78,7 +71,7 @@
                                 <div class="input-group">
                                      <div class="switch">
                                         <div class="onoffswitch">
-                                            <input type="checkbox" checked class="onoffswitch-checkbox" id="example1" name="status">
+                                            <input type="checkbox" {if $status eq  1} checked{/if} class="onoffswitch-checkbox" id="example1" name="status">
                                             <label class="onoffswitch-label" for="example1">
                                                 <span class="onoffswitch-inner"></span>
                                                 <span class="onoffswitch-switch"></span>
@@ -121,50 +114,36 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    user_name: {
+                    name: {
                         message: 'The username is not valid',
                         validators: {
                             notEmpty: {
-                                message: '账户不能为空'
-                            },
-                            stringLength: {
-                                max: 24,
-                                message: '账户不能超过24个字符'
+                                message: '请输入唯一的名称'
                             },
                             regexp: {
                                 regexp: /^[a-zA-Z0-9_\.\u4e00-\u9fa5]+$/,
-                                message: '账户只能是中英文,下划线和数字'
+                                message: '名称只能是中英文,下划线和数字'
                             }
                         }
                     },
-                    password: {
+                    value: {
                         validators: {
-                            notEmpty: {
-                                message: '密码不能为空'
-                            },
-                            stringLength: {
-                                min:6,
-                                max: 24,
-                                message: '密码长度在6-24个字符'
-                            },
-                            regexp: {
-                                regexp: /^[a-zA-Z0-9_\.]+$/,
-                                message: '密码只能是英文,下划线和数字'
+                           notEmpty: {
+                                message: '值不能为空'
                             }
                         }
                     },
-                    phone: {
+                    desc: {
                         validators: {
                             notEmpty: {
-                                message: '手机不能为空'
+                                message: '描述不能为空'
                             },
                             
-                            regexp: {
-                                regexp: /^1[34578]\d{9}$/,
-                                message: '手机号码格式不正确'
-                            }
+                          
                         }
                     }
+                    
+
 
                 }
             })
@@ -183,7 +162,7 @@
                     layer.msg(rs.message)
                     if(rs.status == 200){
                         setTimeout(function (){
-                            window.location.href = "{:url('admin/index')}"
+                            window.location.href = "{:url('system/index')}"
                         },1000);
                     }
                     

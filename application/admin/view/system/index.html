@@ -30,11 +30,11 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>数据列表</h5>
+                        <h5>配置列表</h5>
                     </div>
                     <div class="ibox-content">
                         <div class="col-sm-1">
-                            <a  href="{:url('admin/create')}" class="btn btn-primary ">添加</a>
+                            <a  href="{:url('system/create')}" class="btn btn-primary ">添加</a>
                         </div>
 						
                         <div class="col-sm-4">
@@ -48,29 +48,27 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>管理员名称</th>
-                                    <th>手机</th>
-                                    <th>角色</th>
-                                    <th>添加时间</th>
+                                    <th>配置名称</th>
+                                    <th>配置值</th>
+                                    <th>描述</th>
 									<th>状态</th>
 									<th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            {notempty name="admins"}
-                            {volist name="admins" id="admin"}
-                                <tr class="gradeX" id="rem{$admin->admin_id}">
-                                    <td>{$admin->admin_id}</td>
-                                    <td>{$admin->user_name}</td>
-                                    <td>{$admin->phone|default=''}</td>
-                                    <td class="center">{$admin->role_name|default=''}</td>
-                                    <td class="center">{$admin->create_time}</td>
+                            {notempty name="systems"}
+                            {volist name="systems" id="system"}
+                                <tr class="gradeX" id="rem{$system->id}">
+                                    <td>{$system->id}</td>
+                                    <td>{$system->name}</td>
+                                    <td>{$system->value}</td>
+                                    <td class="center">{$system->desc}</td>
 									<td class="center">
-										{$admin->status}
+										{$system->status}
 									</td>
                                     <td class="center">
-										<a class="glyphicon glyphicon-pencil" title="编辑" href="{:url('admin/admin/edit',array('id'=>$admin->admin_id))}"></a>
-										<a class="glyphicon glyphicon-trash"  title="删除" onclick="del({$admin->admin_id})"></a>
+										<a class="glyphicon glyphicon-pencil" title="编辑" href="{:url('admin/system/edit',array('id'=>$system->id))}"></a>
+										<a class="glyphicon glyphicon-trash"  title="删除" onclick="del({$system->id})"></a>
 										<a class="glyphicon glyphicon-eye-open" title="查看" href="show.html"></a>
 									</td>
                                 </tr>
@@ -84,7 +82,7 @@
 
 							<div class="pull-right col-sm-6">
 								<div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
-									{$admins->render()}
+									{$systems->render()}
 								</div>
 							</div>
 						</div>

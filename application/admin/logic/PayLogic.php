@@ -23,10 +23,9 @@ class PayLogic extends Controller
     public  function  getInfo($id)
     {
 
-
+       return  Pay::get($id);
 
     }
-
 
 
     /**
@@ -37,13 +36,15 @@ class PayLogic extends Controller
     public  function  create($post)
     {
 
-        $pay        =    new Pay();
-        $pay->name  =    $post['name'];
-        $pay->title =    $post['title'];
-        $pay->key   =    $post['key'];
-        $pay->app_id =   $post['app_id'];
-        $pay->return_url = $post['return_url'];
-        $pay->cover_id   =  $post['cover_id'];
+        $pay             =    new Pay();
+
+        $pay->name       =    $post['name'];
+        $pay->title      =    $post['title'];
+        $pay->key        =    $post['key'];
+        $pay->app_id     =    $post['app_id'];
+        $pay->return_url =    $post['return_url'];
+        $pay->cover_id   =    $post['cover_id'];
+        $pay->status     =    isset($post['status']);
 
         if($pay->save()){
             return api(200,'操作成功');
@@ -60,10 +61,24 @@ class PayLogic extends Controller
      * @param  array $post 表单数
      */
 
-    public function  update()
+    public function  update($post)
     {
 
+        $pay             =    Pay::get($post['id']);
 
+        $pay->name       =    $post['name'];
+        $pay->title      =    $post['title'];
+        $pay->key        =    $post['key'];
+        $pay->app_id     =    $post['app_id'];
+        $pay->return_url =    $post['return_url'];
+        $pay->cover_id   =    $post['cover_id'];
+        $pay->status     =    isset($post['status']);
+
+        if($pay->save()){
+            return api(200,'操作成功');
+        }
+
+        return api(500,'操作失败');
 
 
     }

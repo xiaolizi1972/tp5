@@ -21,8 +21,8 @@ class Article extends Controller
     //文章列表
     public function index()
     {
-
-        return view();
+        $articles =  $this->article->getList();
+        return view('index',['articles'=>$articles]);
     }
 
 
