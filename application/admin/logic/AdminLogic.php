@@ -3,10 +3,22 @@ namespace app\admin\logic;
 
 use think\Controller;
 use app\common\model\Admin;
+use app\admin\logic\BaseLogic;
 
 
-Class  AdminLogic extends Controller{
+Class  AdminLogic extends   BaseLogic{
 
+
+    protected  $model;
+
+    public function  _initialize()
+    {
+
+        $this->model  = new admin;
+
+    }
+
+                    
 
     //获取管理员列表
     public function getList()
@@ -77,41 +89,7 @@ Class  AdminLogic extends Controller{
 
     }
 
-   public function  status()
-    {
 
-       $id     =  input('param.id');
-       $status =  input('param.status');
-       if(Admin::where('admin_id', $id)->update(['status' => $status])) {
-            return api(200,'操作成功');
-       }
-
-       return api(500,'操作失败');
-
-    }
-
-
-    public function  delete($id)
-    {
-
-        if(Admin::destroy($id)){
-            return api(200,'删除成功');
-        }
-
-        return api('500','删除失败');
-
-    }
-
-
-
-
-    //获取详情
-    public function getInfo($id)
-    {
-
-       return  Admin::get($id);
-
-    }
 
 
 

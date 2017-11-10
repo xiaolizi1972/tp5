@@ -76,7 +76,7 @@ Route::get('admin/article/status','admin/article/status');
 
 //文章分类
 Route::get('admin/category/index','admin/category/index');
-Route::get('admin/category/create','admin/category/category');
+Route::get('admin/category/create','admin/category/create');
 Route::post('admin/category/save','admin/category/save');
 Route::get('admin/category/edit/:id','admin/category/edit');
 Route::post('admin/category/update','admin/category/update');
@@ -109,6 +109,16 @@ Route::get('admin/advs/edit/:id','admin/advs/edit');
 Route::post('admin/advs/update','admin/advs/update');
 Route::get('admin/advs/delete/:id','admin/advs/delete');
 Route::get('admin/advs/status','admin/advs/sataus');
+
+//广告位置
+Route::get('admin/position/index','admin/position/index');
+Route::get('admin/position/create','admin/position/create');
+Route::post('admin/position/save','admin/position/save');
+Route::get('admin/position/edit/:id','admin/position/edit');
+Route::post('admin/position/update','admin/position/update');
+Route::get('admin/position/delete/:id','admin/position/delete');
+Route::get('admin/position/status','admin/position/status');
+
 
 
 return [

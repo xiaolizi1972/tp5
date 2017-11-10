@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:68:"D:\www\demo\tp5\public/../application/admin\view\category\index.html";i:1510221288;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:68:"D:\www\demo\tp5\public/../application/admin\view\category\index.html";i:1510292411;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -35,9 +35,9 @@
                     </div>
                     <div class="ibox-content">
                         <div class="col-sm-1">
-                            <a  href="<?php echo url('admin/create'); ?>" class="btn btn-primary ">添加</a>
+                            <a  href="<?php echo url('category/create'); ?>" class="btn btn-primary ">添加</a>
                         </div>
-						
+                        
                         <div class="col-sm-4">
                             <div class="input-group">
                                 <input type="text" placeholder="请输入关键词" class="input-sm form-control"> <span class="input-group-btn">
@@ -49,45 +49,41 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>管理员名称</th>
-                                    <th>手机</th>
-                                    <th>角色</th>
-                                    <th>添加时间</th>
-									<th>状态</th>
-									<th>操作</th>
+                                    <th>分类标题</th>
+                                    <th>排序</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php if(!(empty($categorys) || (($categorys instanceof \think\Collection || $categorys instanceof \think\Paginator ) && $categorys->isEmpty()))): if(is_array($categorys) || $categorys instanceof \think\Collection || $categorys instanceof \think\Paginator): $i = 0; $__LIST__ = $categorys;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$category): $mod = ($i % 2 );++$i;?>
-                                <tr class="gradeX" id="rem<?php echo $admin->admin_id; ?>">
-                                    <td><?php echo $admin->admin_id; ?></td>
-                                    <td><?php echo $admin->user_name; ?></td>
-                                    <td><?php echo (isset($admin->phone) && ($admin->phone !== '')?$admin->phone:''); ?></td>
-                                    <td class="center"><?php echo (isset($admin->role_name) && ($admin->role_name !== '')?$admin->role_name:''); ?></td>
-                                    <td class="center"><?php echo $admin->create_time; ?></td>
-									<td class="center">
-										<?php echo $admin->status; ?>
-									</td>
+                                <tr class="gradeX" id="rem<?php echo $category->id; ?>">
+                                    <td><?php echo $category->id; ?></td>
+                                    <td><?php echo $category->name; ?></td>
+                                    <td><?php echo (isset($category->sort) && ($category->sort !== '')?$category->sort:''); ?></td>
                                     <td class="center">
-										<a class="glyphicon glyphicon-pencil" title="编辑" href="<?php echo url('admin/admin/edit',array('id'=>$admin->admin_id)); ?>"></a>
-										<a class="glyphicon glyphicon-trash"  title="删除" onclick="del(<?php echo $admin->admin_id; ?>)"></a>
-										<a class="glyphicon glyphicon-eye-open" title="查看" href="show.html"></a>
-									</td>
+                                        <?php echo $category->status; ?>
+                                    </td>
+                                    <td class="center">
+                                        <a class="glyphicon glyphicon-pencil" title="编辑" href="<?php echo url('admin/category/edit',array('id'=>$category->id)); ?>"></a>
+                                        <a class="glyphicon glyphicon-trash"  title="删除" onclick="del(<?php echo $category->id; ?>)"></a>
+                                        <a class="glyphicon glyphicon-list" title="查看" href="show.html"></a>
+                                    </td>
                                 </tr>
                              <?php endforeach; endif; else: echo "" ;endif; endif; ?>   
                             </tbody>
 
                         </table>
-						
-						<div class="row">
+                        
+                      <!--   <div class="row">
 
-							<div class="pull-right col-sm-6">
-								<div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
-									<?php echo $categorys->render(); ?>
-								</div>
-							</div>
-						</div>
-						
+                            <div class="pull-right col-sm-6">
+                                <div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+                                   
+                                </div>
+                            </div>
+                        </div> -->
+                        
                     </div>
                 </div>
             </div>
@@ -102,12 +98,12 @@
     <script src="__admin_style__/js/plugins/jeditable/jquery.jeditable.js"></script>
     <script src="__admin_style__/js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="__admin_style__/js/plugins/dataTables/dataTables.bootstrap.js"></script>
-	
-	<!-- 插件 -->
-	 <script src="__admin_style__/js/plugins/layer/layer.min.js"></script>
-	<!-- 自定义 -->
-	<script>
-		//删除
+    
+    <!-- 插件 -->
+     <script src="__admin_style__/js/plugins/layer/layer.min.js"></script>
+    <!-- 自定义 -->
+    <script>
+        //删除
         function  del(id){
             
             layer.confirm('您确定要删除？', {
@@ -115,7 +111,7 @@
                 btn: ['确定','取消'] //按钮
                 
                 }, function(){
-                    var url = '/admin/admin/delete/'+id;
+                    var url = '/admin/category/delete/'+id;
                     $.get(url,function(rs){
                         layer.msg(rs.message);
                         if(rs.status == 200){
@@ -128,7 +124,7 @@
             
        function status(id,status)
        {
-            $.get("<?php echo url('admin/status'); ?>",{id:id,status:status},function(rs){
+            $.get("<?php echo url('category/status'); ?>",{id:id,status:status},function(rs){
                 layer.msg(rs.message)
                 if(rs.status == 200){
                   setTimeout(function (){
@@ -139,9 +135,9 @@
             });
        }
     
-	
-	
-	</script>
+    
+    
+    </script>
    
 </body>
 

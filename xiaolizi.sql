@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-11-09 18:05:44
+Date: 2017-11-10 17:12:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -62,7 +62,7 @@ CREATE TABLE `tp_admin` (
 -- Records of tp_admin
 -- ----------------------------
 INSERT INTO `tp_admin` VALUES ('1', 'admin', '$2y$10$saJ/umhxma.8NlJlaWInx.jiYRUlmwK51hmTFGcyVpzH8fZmRZMhe', '0', '', '13402858313', '1', '1', '1', '1506586284', '1506586284', null);
-INSERT INTO `tp_admin` VALUES ('2', 'xiaolizi', '$2y$10$5IX.W8B2FvFivMzoy/D8Q.Y0ZOzm3LUzj.C2BWlvLJ/AYWJWHLUPi', '0', '', '13402858514', '2', '0', '1', '1506586352', '1506587568', null);
+INSERT INTO `tp_admin` VALUES ('2', 'xiaolizi', '$2y$10$5IX.W8B2FvFivMzoy/D8Q.Y0ZOzm3LUzj.C2BWlvLJ/AYWJWHLUPi', '0', '', '13402858514', '2', '0', '1', '1506586352', '1510285267', null);
 
 -- ----------------------------
 -- Table structure for tp_article
@@ -72,13 +72,14 @@ CREATE TABLE `tp_article` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
   `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
   `title` char(80) NOT NULL DEFAULT '' COMMENT '标题',
+  `keywords` char(80) NOT NULL DEFAULT '' COMMENT '关键字',
   `cate_id` int(10) unsigned NOT NULL COMMENT '所属分类',
   `desc` char(140) NOT NULL DEFAULT '' COMMENT '描述',
   `position` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '推荐位',
-  `link_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '外链',
   `cover_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '封面',
   `view` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '浏览量',
   `comment` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
+  `content` text,
   `sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
@@ -86,11 +87,12 @@ CREATE TABLE `tp_article` (
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
   PRIMARY KEY (`id`),
   KEY `idx_category_status` (`cate_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
 
 -- ----------------------------
 -- Records of tp_article
 -- ----------------------------
+INSERT INTO `tp_article` VALUES ('2', '0', '阿斯顿发生的12121asdfsad', '524521521', '0', '其实你自己用不好的东西，别怪别人', '0', '0', '0', '0', '<p>asdfasdfsadf</p>', '0', '1510301138', '1510305010', null, '1');
 
 -- ----------------------------
 -- Table structure for tp_category
@@ -98,26 +100,30 @@ CREATE TABLE `tp_article` (
 DROP TABLE IF EXISTS `tp_category`;
 CREATE TABLE `tp_category` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
-  `name` varchar(30) NOT NULL COMMENT '标志',
+  `name` varchar(30) NOT NULL COMMENT '标识',
   `title` varchar(50) NOT NULL COMMENT '标题',
   `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上级分类ID',
   `sort` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '排序（同级有效）',
-  `meta_title` varchar(50) NOT NULL DEFAULT '' COMMENT 'SEO的网页标题',
   `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '关键字',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `delete_time` int(10) unsigned DEFAULT NULL COMMENT '删除时间',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '数据状态',
   `icon` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '分类图标',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_name` (`name`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='分类表';
+) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COMMENT='分类表';
 
 -- ----------------------------
 -- Records of tp_category
 -- ----------------------------
+INSERT INTO `tp_category` VALUES ('39', 'xinde', 'sadfasdf', '0', '0', '', '', '0', '1510284679', null, '1', '0');
+INSERT INTO `tp_category` VALUES ('40', 'news', '新闻asdfsadf', '0', '1', 'zheshixinwen', 'zheshixinewnf', '1510281133', '1510292428', null, '0', '0');
+INSERT INTO `tp_category` VALUES ('41', 'notice', '通知', '0', '2', '21212', '怎么样这是藐视', '1510281281', '1510284848', '1510284848', '1', '0');
+INSERT INTO `tp_category` VALUES ('42', 'newsss', '中国新闻', '42', '2', 'guaianiz', 'asdfasfas', '1510284145', '1510284427', null, '1', '0');
+INSERT INTO `tp_category` VALUES ('43', 'niubi', '牛逼啊', '40', '1', '21112', '2121212\r\n', '1510284714', '1510292426', null, '0', '0');
 
 -- ----------------------------
 -- Table structure for tp_config
@@ -236,7 +242,7 @@ INSERT INTO `tp_menu` VALUES ('12', '', '10', '添加', '0', '1', 'admin/index/i
 INSERT INTO `tp_menu` VALUES ('13', 'glyphicon glyphicon-cog', '0', '系统配置', '0', '1', 'admin/system/index', '0', '0', null);
 INSERT INTO `tp_menu` VALUES ('14', '', '13', '系统列表', '0', '1', 'admin/system/index', '0', '0', null);
 INSERT INTO `tp_menu` VALUES ('15', '', '13', '支付列表', '0', '1', 'admin/pay/index', '0', '0', null);
-INSERT INTO `tp_menu` VALUES ('16', 'glyphicon glyphicon-file', '0', '文章管理', '0', '1', 'admin/article/index', '0', '0', null);
+INSERT INTO `tp_menu` VALUES ('16', 'glyphicon glyphicon-book', '0', '文章管理', '0', '1', 'admin/article/index', '0', '0', null);
 INSERT INTO `tp_menu` VALUES ('17', '', '16', '文章列表', '0', '1', 'admin/article/index', '0', '0', null);
 INSERT INTO `tp_menu` VALUES ('18', '', '16', '文章分类', '0', '1', 'admin/category/index', '0', '0', null);
 INSERT INTO `tp_menu` VALUES ('19', 'glyphicon glyphicon-bed', '0', '广告管理', '0', '1', 'admin/advs/index', '0', '0', null);
@@ -290,7 +296,7 @@ CREATE TABLE `tp_picture` (
   `status` varchar(50) NOT NULL DEFAULT '0' COMMENT '状态',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_picture
@@ -316,6 +322,7 @@ INSERT INTO `tp_picture` VALUES ('18', '', 'http://www.admin.com/uploads/source_
 INSERT INTO `tp_picture` VALUES ('19', '', 'http://www.admin.com/uploads/source_img/20171109034706_5440.gif', 'http://www.admin.com/uploads/thumb_img/20171109034706_5440.gif', '0', '1510213626');
 INSERT INTO `tp_picture` VALUES ('20', '', 'http://www.admin.com/uploads/source_img/20171109034740_2313.gif', 'http://www.admin.com/uploads/thumb_img/20171109034740_2313.gif', '0', '1510213660');
 INSERT INTO `tp_picture` VALUES ('21', '', 'http://www.admin.com/uploads/source_img/20171109035406_3834.jpeg', 'http://www.admin.com/uploads/thumb_img/20171109035406_3834.jpeg', '0', '1510214046');
+INSERT INTO `tp_picture` VALUES ('22', '', 'http://www.admin.com/uploads/source_img/20171110033045_1950.jpeg', 'http://www.admin.com/uploads/thumb_img/20171110033045_1950.jpeg', '0', '1510299045');
 
 -- ----------------------------
 -- Table structure for tp_position

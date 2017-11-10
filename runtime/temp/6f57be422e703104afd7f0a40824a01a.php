@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:66:"D:\www\demo\tp5\public/../application/admin\view\article\edit.html";i:1510305034;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -37,7 +38,8 @@
                     </div>
 
 
-                    <form method="post" action="{:url('article/save')}" id="myform" class="form-horizontal">
+                    <form method="post" action="<?php echo url('article/update'); ?>" id="myform" class="form-horizontal">
+                        <input type="hidden" name="id" value="<?php echo $article->id; ?>">
                         <div class="tabs-container">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">基础文档</a>
@@ -53,7 +55,7 @@
                                                     <label class="col-sm-2 control-label">文章标题</label>
 
                                                     <div class="col-sm-4">
-                                                        <input type="text" class="form-control" placeholder="请输入标题" name="title">
+                                                        <input type="text" class="form-control" placeholder="请输入标题" name="title" value="<?php echo $article->title; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
@@ -75,7 +77,7 @@
                                                     <label class="col-sm-2 control-label">关键字</label>
 
                                                     <div class="col-sm-4">
-                                                       <input type="text" name="keywords" placeholder="请输入关键字" class="form-control">
+                                                       <input type="text" name="keywords" placeholder="请输入关键字" class="form-control" value="<?php echo $article->keywords; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
@@ -84,7 +86,7 @@
                                                     <label class="col-sm-2 control-label">描述 </label>
 
                                                     <div class="col-sm-4">
-                                                       <textarea  class="form-control" name="desc"></textarea>
+                                                       <textarea  class="form-control" name="desc"><?php echo $article->desc; ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
@@ -114,7 +116,7 @@
                                                     <label class="col-sm-2 control-label">排序</label>
 
                                                     <div class="col-sm-4">
-                                                        <input type="text" class="form-control" placeholder="请输入排序" name="sort">
+                                                        <input type="text" class="form-control" placeholder="请输入排序" name="sort" value="<?php echo $article->sort; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="hr-line-dashed"></div>
@@ -157,7 +159,7 @@
                                                     <label class="col-sm-2 control-label">富文本：</label>
                                                     <div class="col-sm-4">
                                                        <div>
-                                                            <script id="editor" type="text/plain" style="width:700px;height:500px;" name="content"></script>
+                                                            <script id="editor" type="text/plain" style="width:700px;height:500px;" name="content"><?php echo $article->content; ?></script>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -260,7 +262,7 @@
                     layer.msg(rs.message)
                     if(rs.status == 200){
                         setTimeout(function (){
-                            window.location.href = "{:url('article/index')}"
+                            window.location.href = "<?php echo url('article/index'); ?>"
                         },1000);
                     }
                     

@@ -3,30 +3,19 @@ namespace app\admin\logic;
 
 use think\Controller;
 use app\common\model\Category;
+use app\admin\logic\BaseLogic;
 
-class CategoryLogic extends Controller
+class CategoryLogic extends BaseLogic
 {
     
+    protected  $model;
 
-    //获取列表
-    public  function getList()
+    public function  _initialize()
     {
 
-        return  Category::paginate();
-    }
-
-
-   /**
-    * 返回详情
-    * @param integer  $id  数据id
-    */
-    public  function  getInfo($id)
-    {
-
-
+        $this->model  = new Category;
 
     }
-
 
 
     /**
@@ -34,10 +23,28 @@ class CategoryLogic extends Controller
      *
      * @param  array  $post 表单数据
      */
-    public  function  create()
+   public  function  create($post)
     {
 
+            $category     =   new  Category();
 
+            $category->name  =  $post['name'];
+            $category->title =  $post['title'];
+            $category->sort  =  $post['sort'];
+            $category->description =  $post['description'];
+            $category->keywords    =  $post['keywords'];
+            $category->pid   =  $post['pid'];
+            $category->status =  isset($post['status'])?'1':0;
+
+            // pr($category);
+
+            if($category->save()){
+
+                return api(200,'操作成功');
+
+            }
+
+            return api(500,'操作失败');
 
 
     }
@@ -49,41 +56,51 @@ class CategoryLogic extends Controller
      * @param  array $post 表单数
      */
 
-    public function  update()
+    public function  update($post)
     {
 
+            $category      =   Category::get($post['id']);
 
+            $category->name  =  $post['name'];
+            $category->title =  $post['title'];
+            $category->sort  =  $post['sort'];
+            $category->description =  $post['description'];
+            $category->keywords    =  $post['keywords'];
+            $category->pid   =  $post['pid'];
+            $category->status =  isset($post['status'])?'1':0;
+
+            if($category->save()){
+
+                return api(200,'操作成功');
+
+            }
+
+            return api(500,'操作失败');
 
 
     }
 
 
-    /**
-     * 删除数据
-     *
-     * @param  integer $id 数据id
-     */
-    public  function  delete($id)
+    //获取无级分类
+    public  function  getByList($data=[],$pid=0,$nbsp=0)
     {
 
+        $list  =  Category::where('pid',$pid)->select(); 
+        $nbsp+=2;
+        if($list){
 
-    }
-
-
-    /**
-     * 修改状态
-     * @param  integer  $id  数据id
-     */
-
-    public   function  status ()
-    {
-        
-
+             foreach ($list as $val) {
+                $val['title'] =  str_repeat('&emsp;',$nbsp).'|--'.$val['title'];
+                $data [] = $val;
+                $data =  $this->getByList($data,$val['id'],$nbsp);
+             }
+        }
+      
+        return $data;
     }
 
 
 
-
-
+  
     
 }   

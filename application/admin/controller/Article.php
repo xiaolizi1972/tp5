@@ -22,6 +22,7 @@ class Article extends Controller
     public function index()
     {
         $articles =  $this->article->getList();
+      // pr($articles);
         return view('index',['articles'=>$articles]);
     }
 
@@ -53,7 +54,7 @@ class Article extends Controller
 
 
     //修改数据
-    public function update(Request $request, $id)
+    public function update()
     {
         return  $this->article->update(input('post.'));
     }

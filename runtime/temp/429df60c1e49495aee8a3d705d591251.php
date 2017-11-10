@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:68:"D:\www\demo\tp5\public/../application/admin\view\article\create.html";i:1510300987;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -37,7 +38,7 @@
                     </div>
 
 
-                    <form method="post" action="{:url('article/save')}" id="myform" class="form-horizontal">
+                    <form method="post" action="<?php echo url('article/save'); ?>" id="myform" class="form-horizontal">
                         <div class="tabs-container">
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">基础文档</a>
@@ -260,7 +261,7 @@
                     layer.msg(rs.message)
                     if(rs.status == 200){
                         setTimeout(function (){
-                            window.location.href = "{:url('article/index')}"
+                            window.location.href = "<?php echo url('article/index'); ?>"
                         },1000);
                     }
                     

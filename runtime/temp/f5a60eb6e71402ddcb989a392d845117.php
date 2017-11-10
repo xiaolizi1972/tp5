@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:67:"D:\www\demo\tp5\public/../application/admin\view\article\index.html";i:1510221319;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:67:"D:\www\demo\tp5\public/../application/admin\view\article\index.html";i:1510301745;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -35,7 +35,7 @@
                     </div>
                     <div class="ibox-content">
                         <div class="col-sm-1">
-                            <a  href="<?php echo url('admin/create'); ?>" class="btn btn-primary ">添加</a>
+                            <a  href="<?php echo url('article/create'); ?>" class="btn btn-primary ">添加</a>
                         </div>
 						
                         <div class="col-sm-4">
@@ -49,28 +49,28 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>管理员名称</th>
-                                    <th>手机</th>
-                                    <th>角色</th>
+                                    <th>文章标题</th>
+                                    <th>文章分类</th>
+                                    <th>排序</th>
                                     <th>添加时间</th>
 									<th>状态</th>
 									<th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php if(!(empty($articles) || (($articles instanceof \think\Collection || $articles instanceof \think\Paginator ) && $articles->isEmpty()))): if(is_array($articles) || $articles instanceof \think\Collection || $articles instanceof \think\Paginator): $i = 0; $__LIST__ = $articles;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$admin): $mod = ($i % 2 );++$i;?>
-                                <tr class="gradeX" id="rem<?php echo $admin->admin_id; ?>">
-                                    <td><?php echo $admin->admin_id; ?></td>
-                                    <td><?php echo $admin->user_name; ?></td>
-                                    <td><?php echo (isset($admin->phone) && ($admin->phone !== '')?$admin->phone:''); ?></td>
-                                    <td class="center"><?php echo (isset($admin->role_name) && ($admin->role_name !== '')?$admin->role_name:''); ?></td>
-                                    <td class="center"><?php echo $admin->create_time; ?></td>
+                            <?php if(!(empty($articles) || (($articles instanceof \think\Collection || $articles instanceof \think\Paginator ) && $articles->isEmpty()))): if(is_array($articles) || $articles instanceof \think\Collection || $articles instanceof \think\Paginator): $i = 0; $__LIST__ = $articles;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$article): $mod = ($i % 2 );++$i;?>
+                                <tr class="gradeX" id="rem<?php echo $article->id; ?>">
+                                    <td><?php echo $article->id; ?></td>
+                                    <td><?php echo msubstr($article->title,0,5); ?></td>
+                                    <td><?php echo (isset($article->cate_name) && ($article->cate_name !== '')?$article->cate_name:''); ?></td>
+                                    <td class="center"><?php echo $article->sort; ?></td>
+                                    <td class="center"><?php echo $article->create_time; ?></td>
 									<td class="center">
-										<?php echo $admin->status; ?>
+										<?php echo $article->status; ?>
 									</td>
                                     <td class="center">
-										<a class="glyphicon glyphicon-pencil" title="编辑" href="<?php echo url('admin/admin/edit',array('id'=>$admin->admin_id)); ?>"></a>
-										<a class="glyphicon glyphicon-trash"  title="删除" onclick="del(<?php echo $admin->admin_id; ?>)"></a>
+										<a class="glyphicon glyphicon-pencil" title="编辑" href="<?php echo url('admin/article/edit',array('id'=>$article->id)); ?>"></a>
+										<a class="glyphicon glyphicon-trash"  title="删除" onclick="del(<?php echo $article->id; ?>)"></a>
 										<a class="glyphicon glyphicon-eye-open" title="查看" href="show.html"></a>
 									</td>
                                 </tr>

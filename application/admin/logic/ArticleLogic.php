@@ -3,28 +3,22 @@ namespace app\admin\logic;
 
 use think\Controller;
 use app\common\model\Article;
+use app\admin\logic\BaseLogic;
 
 
-class ArticleLogic extends Controller
+class ArticleLogic extends BaseLogic
 {
-    //
-	public function getList()
-	{
+   
 
-		return  Article::paginate();
+    protected  $model;
 
+    public function  _initialize()
+    {
 
-	}
+        $this->model  = new Article;
 
+    }
 
-
-	//获取详情
-	public function getInfo($id)
-	{
-		
-		return Article::get($id);
-
-	}
 
 
 	//添加数据
@@ -37,6 +31,7 @@ class ArticleLogic extends Controller
 		 $article->cover_id =  $post['cover_id'];
 		 $article->desc     =  $post['desc'];
 		 $article->cate_id  =  $post['cate_id'];
+		 $article->keywords =  $post['keywords'];
 		 $article->status   =  isset($post['status'])?'1':'0';
 
 		 if($article->save()) {
@@ -51,7 +46,7 @@ class ArticleLogic extends Controller
 
 
 	//修改数据
-	public function   update()
+	public function   update($post)
 	{
 		 $article  =  Article::get($post['id']);
 
@@ -60,6 +55,7 @@ class ArticleLogic extends Controller
 		 $article->cover_id =  $post['cover_id'];
 		 $article->desc     =  $post['desc'];
 		 $article->cate_id  =  $post['cate_id'];
+		 $article->keywords =  $post['keywords'];
 		 $article->status   =  isset($post['status'])?'1':'0';
 
 
@@ -72,19 +68,7 @@ class ArticleLogic extends Controller
 	}
 
 
-	//删除数据
-	public function   delete()
-	{
 
-	}
-
-	//数据状态
-	public function  status()
-	{
-
-
-
-	}
 
 
 }
