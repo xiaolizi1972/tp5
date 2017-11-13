@@ -34,7 +34,7 @@
                     </div>
                     <div class="ibox-content">
                         <div class="col-sm-1">
-                            <a  href="{:url('advs/create')}" class="btn btn-primary ">添加</a>
+                            <a  href="{:url('position/create')}" class="btn btn-primary ">添加</a>
                         </div>
 						
                         <div class="col-sm-4">
@@ -48,31 +48,26 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>标题</th>
-                                    <th>描述</th>
-                                    <th>广告位</th>
+                                    <th>广告位名称</th>
                                     <th>添加时间</th>
 									<th>状态</th>
 									<th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            {notempty name="advs"}
-                            {volist name="advs" id="adv"}
-                                <tr class="gradeX" id="rem{$adv->id}">
-                                    <td>{$adv->id}</td>
-                                    <td>{$adv->title}</td>
-                                    <td>{$adv->text}</td>
-                                    <td class="client-status">
-                                        <span class="label label-primary">{$adv->position}</span>
-                                    </td>
-                                    <td class="center">{$adv->create_time}</td>
+                            {notempty name="positions"}
+                            {volist name="positions" id="position"}
+                                <tr class="gradeX" id="rem{$position->position_id}">
+                                    <td>{$position->position_id}</td>
+                                    <td>{$position->name}</td>
+                                   
+                                    <td class="center">{$position->create_time}</td>
 									<td class="center">
-										{$adv->status}
+										{$position->status}
 									</td>
                                     <td class="center">
-										<a class="glyphicon glyphicon-pencil" title="编辑" href="{:url('adv/adv/edit',array('id'=>$adv->id))}"></a>
-										<a class="glyphicon glyphicon-trash"  title="删除" onclick="del({$adv->id})"></a>
+										<a class="glyphicon glyphicon-pencil" title="编辑" href="{:url('position/position/edit',array('id'=>$position->position_id))}"></a>
+										<a class="glyphicon glyphicon-trash"  title="删除" onclick="del({$position->position_id})"></a>
 										<a class="glyphicon glyphicon-eye-open" title="查看" href="show.html"></a>
 									</td>
                                 </tr>
@@ -86,7 +81,9 @@
 
 							<div class="pull-right col-sm-6">
 								<div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
-									{$advs->render()}
+                                    {notempty name="positions"}
+									   {$positions->render()}
+                                    {/notempty}
 								</div>
 							</div>
 						</div>

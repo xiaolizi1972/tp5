@@ -18,6 +18,9 @@
     <link href="__admin_style__/css/style.min.css?v=4.0.0" rel="stylesheet">
      <!-- 验证 -->
     <link rel="stylesheet" href="__admin_style__/dist/css/bootstrapValidator.css"/>
+    <!-- 文件上传 -->
+    <link rel="stylesheet" type="text/css" href="__admin_style__/js/webuploader/css/webuploader.css">
+    <link href="__admin_style__/js/bootstrapUploade/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
    
 
 </head>
@@ -30,44 +33,83 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>表单列表 <small>/添加表单</small></h5>
+                        <h5>广告列表 <small>/添加广告</small></h5>
                        
                     </div>
                     <div class="ibox-content">
-                        <form method="post" action="{:url('admin/update')}" id="myform" class="form-horizontal">
-                        <input type="hidden" name="admin_id" value="{$admin.admin_id}">
+                        <form method="post" action="{:url('advs/save')}" id="myform" class="form-horizontal">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">账户</label>
+                                <label class="col-sm-2 control-label">广告标题</label>
 
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="请输入账户名" name="user_name" value="{$admin->user_name}">
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-
-                           
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">手机</label>
-
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="请输入手机号码" name="phone"  value="{$admin->phone}">
+                                    <input type="text" class="form-control" placeholder="请输入广告标题" name="title">
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
 
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">角色</label>
+                                <label class="col-sm-2 control-label">选择位置</label>
 
                                 <div class="col-sm-4">
-                                    <select class="form-control m-b" name="role_id">
-                                        {notempty name="roles"}
-                                        {volist name="roles" id="role"}
-                                            <option value="{$role.role_id}" {if condition="$role.role_id eq $admin.role_id" } selected {/if}>{$role->name}</option>
-                                        {/volist}
-                                        {/notempty}
+                                    <select class="form-control m-b" name="position">
+                                        <option value="">---请选择广告位---</option>
+                                       
+                                            <option value="1">1212</option>
                                        
                                     </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">封面</label>
+                                <input type="hidden" name="advspic" id="cover_id" value="">
+                                <div class="col-sm-4">
+                                    <div class="input-group">  
+                                        <div id="uploader-demo">
+                                            <!--用来存放item-->
+                                            <div id="fileList" class="uploader-list"></div>
+                                            <div id="filePicker" class="">选择图片</div>
+                                            <div  class="file-item" >
+                                                <img  src="" id="imgs">
+                                                <div class="info"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">链接地址</label>
+
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="请输入链接地址" name="link">
+                                    <span class="help-block m-b-none" >      
+                                        (如：http://www.baidu.com)
+                                    </span>
+                                </div>
+                                
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序</label>
+
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" placeholder="请输入排序" name="sort" value="0">
+                                   
+                                </div>
+                                
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">广告描述</label>
+                                <div class="col-sm-4">
+                                    <textarea class="form-control" name="text" rows="4"></textarea>
+                                   
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -109,6 +151,8 @@
     <script src="__admin_style__/js/plugins/iCheck/icheck.min.js"></script>
      <script src="__admin_style__/dist/js/bootstrapValidator.js"></script>
     <script src="__admin_style__/js/layer/layer.js"></script>
+     <!-- 上传文件 -->
+    <script src="__admin_style__/js/webuploader/webuploader.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
        
@@ -121,50 +165,32 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    user_name: {
+                    title: {
                         message: 'The username is not valid',
                         validators: {
                             notEmpty: {
-                                message: '账户不能为空'
-                            },
-                            stringLength: {
-                                max: 24,
-                                message: '账户不能超过24个字符'
-                            },
-                            regexp: {
-                                regexp: /^[a-zA-Z0-9_\.\u4e00-\u9fa5]+$/,
-                                message: '账户只能是中英文,下划线和数字'
+                                message: '标题不能为空'
                             }
-                        }
-                    },
-                    password: {
-                        validators: {
-                            notEmpty: {
-                                message: '密码不能为空'
-                            },
-                            stringLength: {
-                                min:6,
-                                max: 24,
-                                message: '密码长度在6-24个字符'
-                            },
-                            regexp: {
-                                regexp: /^[a-zA-Z0-9_\.]+$/,
-                                message: '密码只能是英文,下划线和数字'
-                            }
-                        }
-                    },
-                    phone: {
-                        validators: {
-                            notEmpty: {
-                                message: '手机不能为空'
-                            },
                             
-                            regexp: {
-                                regexp: /^1[34578]\d{9}$/,
-                                message: '手机号码格式不正确'
+                        }
+                    },
+                    advspic: {
+                        validators: {
+                            notEmpty: {
+                                message: '请上传图片'
                             }
+                        }
+                    },
+                    position: {
+                        validators: {
+                            notEmpty: {
+                                message: '请选择广告位'
+                            }
+                            
+                         
                         }
                     }
+
 
                 }
             })
@@ -183,12 +209,49 @@
                     layer.msg(rs.message)
                     if(rs.status == 200){
                         setTimeout(function (){
-                            window.location.href = "{:url('admin/index')}"
+                            window.location.href = "{:url('advs/index')}"
                         },1000);
                     }
                     
                 }, 'json');
             });
+
+
+
+             //文件上传
+             //初始化Web Uploader
+            var uploader = WebUploader.create({
+                // 自动上传
+                auto: true,
+                // swf文件路径
+                swf: 'js/webuploader/dist/Uploader.swf',
+                // 提交地址
+                server: 'http://www.admin.com/admin/image/image',
+                // 选择文件的按钮。可选。
+                pick: '#filePicker',
+                // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                resize: false,
+                // 允许上传的格式
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/*'
+                },
+                 duplicate :true //是否重复上传
+            });
+
+            // 上传成功回调
+            uploader.on( 'uploadSuccess', function( file,response ) {
+               
+                //console.log(response);
+                 $('#imgs').css({"width":"200","height":"200"});
+                 $('#imgs').attr('src',response.data.path);
+                 $('#cover_id').val(response.data.id);
+                // console.log(response.data.id);
+    
+            });
+
+
     });
 </script>
 </body>
