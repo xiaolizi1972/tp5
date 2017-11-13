@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-11-10 17:12:08
+Date: 2017-11-13 15:29:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -63,6 +63,31 @@ CREATE TABLE `tp_admin` (
 -- ----------------------------
 INSERT INTO `tp_admin` VALUES ('1', 'admin', '$2y$10$saJ/umhxma.8NlJlaWInx.jiYRUlmwK51hmTFGcyVpzH8fZmRZMhe', '0', '', '13402858313', '1', '1', '1', '1506586284', '1506586284', null);
 INSERT INTO `tp_admin` VALUES ('2', 'xiaolizi', '$2y$10$5IX.W8B2FvFivMzoy/D8Q.Y0ZOzm3LUzj.C2BWlvLJ/AYWJWHLUPi', '0', '', '13402858514', '2', '0', '1', '1506586352', '1510285267', null);
+
+-- ----------------------------
+-- Table structure for tp_advs
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_advs`;
+CREATE TABLE `tp_advs` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` char(80) NOT NULL DEFAULT '' COMMENT '广告标题',
+  `position` int(11) NOT NULL COMMENT '广告位置',
+  `advspic` int(11) NOT NULL COMMENT '图片地址',
+  `text` text NOT NULL COMMENT '文字广告内容',
+  `link` char(140) NOT NULL DEFAULT '' COMMENT '链接地址',
+  `sort` int(3) unsigned NOT NULL DEFAULT '0' COMMENT '优先级',
+  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态（0：禁用，1：正常）',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '开始时间',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '结束时间',
+  `delete_time` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='广告表';
+
+-- ----------------------------
+-- Records of tp_advs
+-- ----------------------------
+INSERT INTO `tp_advs` VALUES ('4', '第一广告', '1', '0', 'zheshidiiguangao', '', '0', '1', '0', '0', null);
+INSERT INTO `tp_advs` VALUES ('5', '这是什么鬼', '1', '0', '阿斯顿发生的', '', '0', '1', '1510556116', '1510556116', null);
 
 -- ----------------------------
 -- Table structure for tp_article
@@ -330,15 +355,19 @@ INSERT INTO `tp_picture` VALUES ('22', '', 'http://www.admin.com/uploads/source_
 DROP TABLE IF EXISTS `tp_position`;
 CREATE TABLE `tp_position` (
   `position_id` int(3) unsigned NOT NULL AUTO_INCREMENT COMMENT '位置id',
-  `position_name` varchar(60) NOT NULL DEFAULT '' COMMENT '广告位置名称',
-  `position_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '广告描述',
+  `name` varchar(60) NOT NULL DEFAULT '' COMMENT '广告位置名称',
+  `desc` varchar(255) NOT NULL DEFAULT '' COMMENT '广告描述',
   `status` tinyint(1) DEFAULT '0' COMMENT '0关闭1开启',
+  `create_time` int(11) DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(11) DEFAULT '0' COMMENT '修改时间',
+  `delete_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`position_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_position
 -- ----------------------------
+INSERT INTO `tp_position` VALUES ('1', '第一广告', '这是第一广告位\r\n', '1', '1510557478', '1510557478', null);
 
 -- ----------------------------
 -- Table structure for tp_role
