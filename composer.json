@@ -29,7 +29,3 @@
         "preferred-install": "dist"
     }
 }
-
-
-composer create-project xlz1972/gb
-composer create-project topthink/think tp5  --prefer-dist
