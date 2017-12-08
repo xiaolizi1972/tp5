@@ -1,6 +1,6 @@
 {
-    "name": "topthink/think",
-    "description": "the new thinkphp framework",
+    "name": "xiaolizi/think",
+    "description": "the new xiaolizi framework",
     "type": "project",
     "keywords": [
         "framework",
@@ -11,8 +11,8 @@
     "license": "Apache-2.0",
     "authors": [
         {
-            "name": "liu21st",
-            "email": "liu21st@gmail.com"
+            "name": "xiaolizi",
+            "email": "2860265796@qq.com"
         }
     ],
     "require": {
