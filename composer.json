@@ -1,5 +1,5 @@
 {
-    "name": "xlz1972/gb",
+    "name": "xiaoli/tp",
     "description": "the new xiaolizi framework",
     "type": "project",
     "keywords": [
@@ -29,3 +29,7 @@
         "preferred-install": "dist"
     }
 }
+
+
+composer create-project xlz1972/gb
+composer create-project topthink/think tp5  --prefer-dist
